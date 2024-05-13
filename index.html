@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎼</text></svg>">
+  <title>Clef</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      gap: 3em;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    header {
+      text-align: center;
+      font-size: 1.2em;
+    }
+
+    .staff {
+      width: 200px;
+      position: relative;
+    }
+
+    .note {
+      position: absolute;
+      height: 1em;
+      pointer-events: none;
+      z-index: 10;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .space .note {
+      margin-top: 4px;
+    }
+
+    .track {
+      height: 0.5em;
+      position: relative;
+      padding: 0 2px;
+    }
+
+    .ledger {
+      width: 60px;
+      margin: 0 auto;
+    }
+
+    .line:before {
+      content: "";
+      display: block;
+      height: 3px;
+      border-bottom: solid 2px black;
+    }
+
+    .ledger.line:before {
+      border-color: #ccc;
+    }
+
+    [data-show-ledger=false] .ledger {
+      opacity: 0;
+    }
+
+    .notes button {
+      border: 0;
+      background-color: white;
+      border-radius: 50%;
+      font: inherit;
+      font-weight: 600;
+      width: 3em;
+      height: 3em;
+      cursor: pointer;
+      border: solid 2px black;
+    }
+
+    .notes button:hover {
+      background-color: #eee;
+    }
+
+    .notes button:active {
+      background-color: #ddd;
+    }
+
+    .guess {
+      animation: 500ms incorrect;
+    }
+
+    .correct {
+      background-color: #4beb7d !important;
+    }
+
+    .guess.correct {
+      animation: 500ms correct;
+    }
+
+    @keyframes correct {
+      0% {
+        transform: scale(90%);
+      }
+
+      50% {
+        transform: scale(110%);
+      }
+
+      100% {
+        transform: scale(100%);
+      }
+    }
+
+    @keyframes incorrect {
+      0% {
+        transform: translateX(-3px)
+      }
+
+      25% {
+        transform: translateX(3px)
+      }
+
+      50% {
+        transform: translateX(-2px)
+      }
+
+      75% {
+        transform: translateX(2px)
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Clef</h1>
+    <p>A tiny game that helps you learn staff notation</p>
+  </header>
+  <div class="staff">
+    <!-- Ledger lines -->
+    <div data-name="E" class="track ledger line"></div>
+    <div data-name="D" class="track ledger space"></div>
+    <div data-name="C" class="track ledger line"></div>
+    <div data-name="B" class="track ledger space"></div>
+    <div data-name="A" class="track ledger line"></div>
+    <div data-name="G" class="track ledger space"></div>
+
+    <!-- Main stave-->
+    <div data-name="F" class="track line"></div>
+    <div data-name="E" class="track space"></div>
+    <div data-name="D" class="track line"></div>
+    <div data-name="C" class="track space"></div>
+    <div data-name="B" class="track line"></div>
+    <div data-name="A" class="track space"></div>
+    <div data-name="G" class="track line"></div>
+    <div data-name="F" class="track space"></div>
+    <div data-name="E" class="track line"></div>
+
+    <!-- Ledger lines -->
+    <div data-name="D" class="track ledger space"></div>
+    <div data-name="C" class="track ledger line"></div>
+    <div data-name="B" class="track ledger space"></div>
+    <div data-name="A" class="track ledger line"></div>
+    <div data-name="G" class="track ledger space"></div>
+    <div data-name="F" class="track ledger line"></div>
+
+    <svg class="note" viewBox="584 171 460 309">
+      <path
+        d="M736.157 469.328c-66.838-15.858-114.547-50.097-135.287-90.239-9.753-18.158-15.53-37.956-16.83-58.566-.02-.313-.018-.592-.023-.889-.392-23.02 5.778-44.762 24.652-69.314 17.308-22.64 43.806-42.035 78.068-56.932 36.226-15.815 79.165-23.652 125.436-22.222 9.411.291 18.689.952 27.804 1.96a336.655 336.655 0 0 1 29.098 4.255c18.417 3.028 35.951 7.614 52.309 13.552 16.085 5.606 30.843 12.335 45.355 21.025 12.834 7.686 22.84 15.234 32.661 24.364a172.745 172.745 0 0 1 13.688 14.857 171.524 171.524 0 0 1 9.21 12.796c3.139 5.051 5.91 9.894 8.495 15.378 8.466 17.957 12.92 38.34 13.381 55.588.012 34.166-17.341 64.891-46.361 89.128-21.386 18.634-47.002 32.544-80.167 42.943-24.709 7.748-50.466 11.931-76.045 12.672-8.471.429-15.011.119-23.625.037-29.027-.936-56.537-4.527-81.819-10.393ZM880 426c4.439-3.437 7.498-6.607 12.172-12.12 8.091-9.544 13.459-19.074 16.816-31.635.378-1.23.719-2.466 1.022-3.708a67.276 67.276 0 0 0 1.603-8.749c.69-9.554.159-20.798-2.695-31.632a838.462 838.462 0 0 0-2.099-8.889c-2.919-13.016-5.739-22.978-10.52-36.456-.283-.759-.647-1.899-.939-2.658-10.098-26.275-20.545-44.214-35.316-57.572-20.136-19.014-49.794-29.646-81.451-19.938-12.677 3.888-23.239 10.473-30.241 17.611-4.079 4.084-8.056 9.15-11.144 14.084-7.831 12.598-11.601 22.146-12.859 35.568-.276 4.734-.589 10.487 0 16 .976 6.177 1.569 11.353 2.825 17.31 3.503 17.975 8.48 34.381 12.439 46.697.045.14.084.283.126.424a139.068 139.068 0 0 0 6.777 18.038c2.144 4.922 4.799 10.545 7.363 14.974a142.68 142.68 0 0 0 5.412 9c3.216 4.944 6.273 8.387 9.747 12.328 5.496 6.042 11.269 10.928 17.241 14.796 9.372 5.718 19.05 9.174 28.766 10.844 17.825 3.677 37.728.538 48.221-4.439 6.956-3.299 10.687-5.196 16.734-9.878Z" />
+    </svg>
+  </div>
+
+  <div class="notes">
+    <button data-name="A">A</button>
+    <button data-name="B">B</button>
+    <button data-name="C">C</button>
+    <button data-name="D">D</button>
+    <button data-name="E">E</button>
+    <button data-name="F">F</button>
+    <button data-name="G">G</button>
+  </div>
+
+  <div class="settings">
+    <input type="checkbox" id="ledgers" />
+    <label for="ledgers">Ledger lines?</label>
+  </div>
+
+  <script defer>
+    let note = document.querySelector(".note");
+    let staff = document.querySelector(".staff");
+    let allTracks = Array.from(document.querySelectorAll(".track"));
+    let nonLedgerTracks = Array.from(document.querySelectorAll(".track:not(.ledger)"));
+    let ledgersCheckbox = document.querySelector("#ledgers");
+
+    function setup() {
+      // If the user enabled ledger lines, choose from them
+      let tracks = ledgersCheckbox.checked ? allTracks : nonLedgerTracks;
+      let track = tracks[Math.floor(Math.random() * tracks.length)];
+      let correctNote = track.getAttribute("data-name");
+
+      // Hide the ledger lines if the note is on the regular stave
+      let isLedger = track.classList.contains("ledger");
+      staff.setAttribute("data-show-ledger", isLedger ? "true" : "false");
+
+      // Stick the note inside the correct track
+      track.append(note);
+
+      // Listen for guesses with the note buttons
+      onclick = (event) => {
+        let target = event.target;
+        if (target instanceof HTMLButtonElement) {
+          let note = target.getAttribute("data-name");
+          submitGuess(note);
+        }
+      }
+
+      // Listen for guesses from keyboard events
+      onkeydown = (event) => {
+        let key = event.key.toUpperCase();
+
+        if (/^[ABCDEFG]$/.test(key)) {
+          submitGuess(key);
+        }
+      }
+
+      function submitGuess(guessedNote) {
+        onclick = undefined;
+        onkeydown = undefined;
+
+        let guessedButton = document.querySelector(`.notes [data-name=${guessedNote}]`);
+        let correctButton = document.querySelector(`.notes [data-name=${correctNote}]`);
+
+        guessedButton.classList.add("guess");
+        correctButton.classList.add("correct");
+
+        setTimeout(() => {
+          correctButton.classList.remove("correct");
+          guessedButton.classList.remove("guess");
+          setup();
+        }, 1000);
+      }
+    }
+
+    setup();
+  </script>
+</body>
+
+</html>
